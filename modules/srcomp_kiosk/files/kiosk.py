@@ -82,7 +82,7 @@ class Kiosk(object):
                 elif self.browser_type == CHROMIUM_TYPE:
                     # Oddly, this option doesn't seem documented, and there is
                     # an '--app=URL' option documented. Testing shows that
-                    # '--app' doens't seem to work, while '--kiosk' does.
+                    # '--app' doesn't seem to work, while '--kiosk' does.
                     Popen([self.browser_path, "--kiosk", url])
                 else:
                     raise AssertionError("Unexpected browser type {}".format(self.browser_type))
