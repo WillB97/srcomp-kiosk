@@ -15,7 +15,6 @@ CHROMIUM_TYPE = 'chromium-browser'
 
 DEFAULT_BROWSER_TYPE = FIREFOX_TYPE
 DEFAULT_CONFIG  = '/etc/srcomp-kiosk/config.yaml'
-DEFAULT_PROFILE = '/opt/srcomp-kiosk/firefox-profile'
 
 BROWSER_TYPES = (FIREFOX_TYPE, CHROMIUM_TYPE)
 assert DEFAULT_BROWSER_TYPE in BROWSER_TYPES
@@ -36,9 +35,6 @@ parser.add_argument('--browser-type', dest='browser_type', help='Browser type to
         choices=BROWSER_TYPES)
 parser.add_argument('--browser-path', dest='browser_path', help='Path to the '
         'browser to use (defaults to the value of the type choice)')
-parser.add_argument('--profile', dest='profile', help='Profile to use for firefox '
-        "based browsers (default: {0}, passed to the browser after '--profile')".format(DEFAULT_PROFILE),
-        default=DEFAULT_PROFILE)
 
 args = parser.parse_args()
 
@@ -53,7 +49,6 @@ class Kiosk(object):
         self.configPath = args.config
         self.browser_type = args.browser_type
         self.browser_path = args.browser_path if args.browser_path else self.browser_type
-        self.profilePath = args.profile
         self.loop_end = loop_end
 
     def get_url(self):
@@ -78,7 +73,8 @@ class Kiosk(object):
         for url in self.get_urls():
             try:
                 if self.browser_type == FIREFOX_TYPE:
-                    Popen([self.browser_path, "--profile", self.profilePath, url])
+                    # Recent Firefox has a kiosk mode once again :)
+                    Popen([self.browser_path, "--kiosk", url])
                 elif self.browser_type == CHROMIUM_TYPE:
                     # Oddly, this option doesn't seem documented, and there is
                     # an '--app=URL' option documented. Testing shows that

@@ -125,8 +125,7 @@ class srcomp_kiosk {
     mode    => '0755',
     require => [File[$kiosk_script],
                 File[$kiosk_logdir],
-                File["${etc_kioskdir}/config.yaml"],
-                File["${opt_kioskdir}/firefox-profile"]],
+                File["${etc_kioskdir}/config.yaml"]],
   }
 
   file { $opt_kioskdir:
@@ -136,16 +135,6 @@ class srcomp_kiosk {
   file { $kiosk_script:
     ensure  => file,
     source  => 'puppet:///modules/srcomp_kiosk/kiosk.py',
-    mode    => '0755',
-    require => File[$opt_kioskdir],
-  }
-
-  file { "${opt_kioskdir}/firefox-profile":
-    ensure  => directory,
-    recurse => true,
-    purge   => true,
-    force   => true,
-    source  => 'puppet:///modules/srcomp_kiosk/firefox-profile',
     mode    => '0755',
     require => File[$opt_kioskdir],
   }
