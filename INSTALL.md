@@ -1,72 +1,96 @@
 # SRComp Kiosk Installation
 
-## Raspberry Pi setup
+## Choosing an image
 
 If the Raspberry Pi already have a desktop environment set up and it doesn't
 need to be re-imaged, then you can skip this section and jump straight to
 "SRComp Kiosk setup".
 
-The kiosk runs on top of Raspbian Linux (a derivative of Debian). Two SD card
-images are available for download from the Raspberry Pi website: full Raspbian
-(includes a full desktop environment) and Raspbian Lite (no desktop). As of
-April 2016, the full Raspbian image is too large for 4 GB SD cards, so you may
-need to use the Raspbian Lite image.
+The kiosk runs on top of Raspberry Pi OS (a derivative of Debian). Several SD
+card images are available, with varying levels of software already installed on
+each. You'll need to choose a version which is suitable for the Pis and SD cards
+you have available.
 
-Download the [latest Raspbian Lite image][raspbianlite], and flash it to the SD
-card (see [this page][sd-setup] for a guide). You should then follow the
-[instructions][rpi-setup] on the Raspberry Pi website to power on and log in to
-the Raspberry Pi.
+Student Robotics' Pis are 1As and have 4GB SD cards, so currently (early 2022)
+the most convenient option is the "Raspberry Pi OS with desktop" which is 1.3GB
+and contains a basic desktop environment (but no additional software).
 
-It is a good idea to make sure all installed packages are up to date, so enter
-these commands to perform system updates:
+## Bootstrap
 
-    sudo apt update -y
-    sudo apt upgrade -y
+There are a few ways to get the SRComp Kiosk bootstrap files (i.e: this repo)
+onto the Pi:
 
-Next, we need to install a desktop environment. Note that the install process
-can take up to an hour:
+* by modifying a fresh Raspberry Pi OS image to include it, or
+* by copying it onto SD card after it has been written, or
+* by copying it onto the Pi after the image has been booted
 
-    sudo apt install -y lightdm lxde-core xserver-xorg xinit
+If preparing more than one Pi at a time the first of these is the suggested path
+as it reduces the manual effort needed.
 
-Finally, we need to configure the Raspberry Pi to start the desktop environment
-as part of the boot sequence. This is also done through the raspi-config tool
-using the "Enable boot to desktop" option. Reboot the Raspberry Pi to test that
-it loads a desktop environment on startup.
+If you're running linux you can modify an image to include the necessary files
+by running a script included in this repo:
 
-[raspbianlite]: https://www.raspberrypi.org/downloads/raspbian/
-[sd-setup]: https://www.raspberrypi.org/documentation/installation/installing-images/README.md
-[rpi-setup]: https://www.raspberrypi.org/help/quick-start-guide/
+``` shell
+./scripts/from-clean-image $IMAGE
+```
+
+The equivalent steps are likely possible manually on other host operating
+systems, however this has not been tested.
+
+## Writing the image
+
+The SD cards can either be imaged using the Raspberry Pi Imager or the images
+downloaded and copied onto the SD card manually. Raspberry Pi Documentation's
+[getting started guide][getting-started-guide] explains how to write the image
+to the SD card.
+
+Raspberry Pi OS has SSH disabled by default, which will be needed when the Pis
+are deployed and will likely make setup of the image easier too. If you ran the
+provided `from-clean-image` script to prepare the image then this change has
+already been made for you. Otherwise, to enable it you can mount the `boot`
+partition on a freshly written SD card image and then `touch /path/to/boot/ssh`.
+
+[getting-started-guide]: https://www.raspberrypi.com/documentation/computers/getting-started.html
+
+## Bootstrap (alternative)
+
+To get the SRComp Kiosk bootstrap files (i.e: this repo) onto a Pi which has not
+had it added to the image, enter the following at a terminal running on the
+Raspberry Pi:
+
+``` shell
+# Install Git:
+sudo apt install --yes git
+
+# Clone this repo:
+git clone --recursive https://github.com/PeterJCLaw/srcomp-kiosk
+```
 
 ## SRComp Kiosk setup
 
-### Bootstrap
+To deploy SRComp Kiosk on a running Pi, enter the following at a terminal
+running on the Raspberry Pi:
 
-To get the repo onto a Raspbian image, you can use `./scripts/from-clean-image $IMAGE".
-Note that you'll still need to run the install script (as below) once the Pi has booted.
-(You'll probably still want to install git on the Pi anyway)
+``` shell
+cd srcomp-kiosk
+sudo ./scripts/install
+```
 
-To deploy on a clean Raspberry Pi (one that has not had srcomp-kiosk installed
-on its SD card yet), enter the following at a terminal running on the Raspberry Pi:
+This may print the following message, either if SRComp Kiosk has been deployed
+on the Pi before or if the Puppet install has created some files there.
 
-    # Install Git:
-    sudo apt install -y git
-    # Clone this repo:
-    git clone --recursive https://www.studentrobotics.org/gerrit/p/comp/srcomp-kiosk.git
+``` text
+Puppet dir (/etc/puppet) already exists, remove it? [y/N]:
+```
 
-    # Run the install script:
-    cd srcomp-kiosk
-    sudo ./scripts/install
+Unless you're aware of anything particular you need in that folder, removal is
+safe to proceed with (SRComp Kiosk will replace the files with its own) by
+entering "y".
 
-If `./scripts/install` prints the following message:
+If the Puppet config is later modified, the changes can be deployed by running
+the following command:
 
-    Puppet dir (/etc/puppet) already exists, remove it? [y/N]:
-
-then enter "y", which replaces whatever was at /etc/puppet (most likely a
-previous install of srcomp-kiosk) with the current Puppet config.
-
-If the Puppet config is later modified, the changes can be deployed by running the following commands:
-
-    # Fetch the changes:
-    git pull origin master
-    # Deploy the new config:
-    sudo ./scripts/update
+``` shell
+cd srcomp-kiosk
+sudo ./scripts/update
+```
