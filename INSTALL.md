@@ -34,6 +34,9 @@ by running a script included in this repo:
 ./scripts/from-clean-image $IMAGE
 ```
 
+This will modify the image (in place) to include this repo and enable SSH for
+easier deployment.
+
 The equivalent steps are likely possible manually on other host operating
 systems, however this has not been tested.
 
