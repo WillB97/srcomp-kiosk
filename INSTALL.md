@@ -20,13 +20,13 @@ the Raspberry Pi.
 It is a good idea to make sure all installed packages are up to date, so enter
 these commands to perform system updates:
 
-    sudo apt-get update -y
-    sudo apt-get upgrade -y
+    sudo apt update -y
+    sudo apt upgrade -y
 
 Next, we need to install a desktop environment. Note that the install process
 can take up to an hour:
 
-    sudo apt-get install -y lightdm lxde-core xserver-xorg xinit
+    sudo apt install -y lightdm lxde-core xserver-xorg xinit
 
 Finally, we need to configure the Raspberry Pi to start the desktop environment
 as part of the boot sequence. This is also done through the raspi-config tool
@@ -49,7 +49,7 @@ To deploy on a clean Raspberry Pi (one that has not had srcomp-kiosk installed
 on its SD card yet), enter the following at a terminal running on the Raspberry Pi:
 
     # Install Git:
-    sudo apt-get install -y git
+    sudo apt install -y git
     # Clone this repo:
     git clone --recursive https://www.studentrobotics.org/gerrit/p/comp/srcomp-kiosk.git
 
