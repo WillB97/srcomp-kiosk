@@ -1,10 +1,10 @@
 # Ident     MAC         PAGE
 
-# Arena Corners; SourceBots Pis from ECS
- 0  b8:27:eb:a6:3d:c6   arena?main,0
- 1  b8:27:eb:69:c6:c3   arena?main,1
- 2  b8:27:eb:84:ab:66   arena?main,2
- 3  b8:27:eb:aa:f4:c6   arena?main,3
+# Arena Corners;
+3b0  b8:27:eb:f0:27:ad   arena?main,0
+3b1  b8:27:eb:55:aa:cd   arena?main,1
+3b2  b8:27:eb:d8:48:81   arena?main,2
+3b3  b8:27:eb:55:bb:a1   arena?main,3
 
 # Cube; SR Pi 1 As
 11  b8:27:eb:69:f2:04   staging # on areana
@@ -13,23 +13,19 @@
 
 # Bar 2; SR Pi 1 As
  8  b8:27:eb:b9:2b:29   outside # bar 2 screen
- 7  b8:27:eb:be:ce:73   outside # helpdesk
+ 7  b8:27:eb:be:ce:73   livestream # volunteer area
 
-# Level 3, SUSU Cafe, need VGA adapters
-sb4 b8:27:eb:65:17:d1   livestream
+# Level 3, SUSU Cafe built in displays
  6  b8:27:eb:ed:f2:77   outside
-
-# Level 3, SUSU Cafe by the door
  5  b8:27:eb:e4:7a:ef   outside
+ 4  b8:27:eb:ec:0e:80   livestream
 
-# Bar 3
-sb5 b8:27:eb:58:69:c9   outside # not sure yet, might be livestream
+ # Bar 3
+ 3  b8:27:eb:2e:84:e4   outside
 
-# Level 4
- 4  b8:27:eb:ec:0e:80   outside # overhead as you go down the stairs
+ # Level 4
+ 2  b8:27:eb:e9:ec:98   livestream
 
 # Others
- 3  b8:27:eb:2e:84:e4   outside
- 2  b8:27:eb:e9:ec:98   outside
  1  b8:27:eb:51:84:16   outside
  0  b8:27:eb:89:e9:e0   outside

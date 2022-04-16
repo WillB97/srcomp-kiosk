@@ -1,4 +1,4 @@
-# Student Robotics Pi 1
+# Student Robotics Pi 3b1
 ---
 url: http://%{hiera('compbox_hostname')}/arena.html?main,1
-hostname: pi-arena-1.srobo
+hostname: pi-arena-main1.srobo
