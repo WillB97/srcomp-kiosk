@@ -1,4 +1,0 @@
-# Student Robotics Pi sb5
----
-url: http://%{hiera('compbox_hostname')}/outside.html
-hostname: pi-outside-sb5.srobo

@@ -1,4 +1,4 @@
 # Student Robotics Pi 7
 ---
-url: http://%{hiera('compbox_hostname')}/outside.html
-hostname: pi-outside-7.srobo
+url: https://www.youtube-nocookie.com/embed/cPk0i3ndPmA
+hostname: pi-livestream-7.srobo
