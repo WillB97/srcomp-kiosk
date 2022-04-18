@@ -2,7 +2,7 @@
 
 This is a kiosk type system intended for use at the Student Robotics Competition.
 
-It is a puppet config wrapping a launcher script.
+It is a puppet config wrapping a firefox profile and a launcher script.
 
 The launcher script is `kiosk.py` and is installed behind a wrapper as
 `srcomp-kiosk` which presents an interface similar to a service -- it
