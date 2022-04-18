@@ -24,8 +24,7 @@ class srcomp_kiosk {
     unless  => "/usr/bin/timedatectl status | grep 'Time zone: ${timezone}'",
   }
 
-  package { ["firefox-esr"
-            ,"unclutter"
+  package { ["unclutter"
             ,"python3-yaml"
             ,"x11-xserver-utils"
             ,"screen"
@@ -34,6 +33,12 @@ class srcomp_kiosk {
             ,"ntpstat"  #  but `ntpq -p` is more useful
             ]:
     ensure => installed,
+  }
+
+  package { ["firefox-esr"]:
+    # Pin the specific version already present on the Pis to ensure that we
+    # don't accidentally upgrade them.
+    ensure => '52.9.0esr-1~deb9u1',
   }
 
   package { ["xscreensaver"]:
