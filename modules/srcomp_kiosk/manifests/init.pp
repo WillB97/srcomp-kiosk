@@ -24,8 +24,7 @@ class srcomp_kiosk {
     unless  => "/usr/bin/timedatectl status | grep 'Time zone: ${timezone}'",
   }
 
-  package { ["firefox-esr"
-            ,"unclutter"
+  package { ["unclutter"
             ,"python3-yaml"
             ,"x11-xserver-utils"
             ,"screen"
@@ -34,6 +33,12 @@ class srcomp_kiosk {
             ,"ntpstat"  #  but `ntpq -p` is more useful
             ]:
     ensure => installed,
+  }
+
+  package { ["firefox-esr"]:
+    # Pin the specific version already present on the Pis to ensure that we
+    # don't accidentally upgrade them.
+    ensure => '52.9.0esr-1~deb9u1',
   }
 
   package { ["xscreensaver"]:
@@ -125,7 +130,8 @@ class srcomp_kiosk {
     mode    => '0755',
     require => [File[$kiosk_script],
                 File[$kiosk_logdir],
-                File["${etc_kioskdir}/config.yaml"]],
+                File["${etc_kioskdir}/config.yaml"],
+                File["${opt_kioskdir}/firefox-profile"]],
   }
 
   file { $opt_kioskdir:
@@ -135,6 +141,16 @@ class srcomp_kiosk {
   file { $kiosk_script:
     ensure  => file,
     source  => 'puppet:///modules/srcomp_kiosk/kiosk.py',
+    mode    => '0755',
+    require => File[$opt_kioskdir],
+  }
+
+  file { "${opt_kioskdir}/firefox-profile":
+    ensure  => directory,
+    recurse => true,
+    purge   => true,
+    force   => true,
+    source  => 'puppet:///modules/srcomp_kiosk/firefox-profile',
     mode    => '0755',
     require => File[$opt_kioskdir],
   }
