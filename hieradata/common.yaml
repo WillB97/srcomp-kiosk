@@ -5,5 +5,5 @@ browser_type: firefox
 
 timezone: Europe/London
 
-compbox_hostname: compbox-2019.srobo
+compbox_hostname: compbox-2022.srobo
 compbox_ip: '10.42.1.99'
