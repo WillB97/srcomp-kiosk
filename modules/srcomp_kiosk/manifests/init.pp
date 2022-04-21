@@ -15,6 +15,7 @@ class srcomp_kiosk {
   $compbox_hostname = hiera('compbox_hostname')
 
   include 'srcomp_kiosk::hostname'
+  include 'srcomp_kiosk::tunnel'
 
   class { '::ntp':
     servers => [$compbox_hostname],
