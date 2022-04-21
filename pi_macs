@@ -15,8 +15,6 @@
  8  b8:27:eb:b9:2b:29   outside # bar 2 screen
 
 # Level 3, SUSU Cafe built in displays
- 6  b8:27:eb:ed:f2:77   outside
- 5  b8:27:eb:e4:7a:ef   outside
 jss1  b8:27:eb:67:70:ff   livestream
  7  b8:27:eb:be:ce:73   outside
 
@@ -29,5 +27,7 @@ jss0  b8:27:eb:c3:ee:17   livestream
 
 # Others
 11  b8:27:eb:69:f2:04   outside
+ 6  b8:27:eb:ed:f2:77   outside
+ 5  b8:27:eb:e4:7a:ef   outside
  2  b8:27:eb:e9:ec:98   outside
  0  b8:27:eb:89:e9:e0   outside
