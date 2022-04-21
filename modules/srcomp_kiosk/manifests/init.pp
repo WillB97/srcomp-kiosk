@@ -14,6 +14,8 @@ class srcomp_kiosk {
   $compbox_ip   = hiera('compbox_ip')
   $compbox_hostname = hiera('compbox_hostname')
 
+  $is_newer_pi = $::architecture == 'armv7l'
+
   include 'srcomp_kiosk::hostname'
   include 'srcomp_kiosk::tunnel'
 
@@ -36,10 +38,16 @@ class srcomp_kiosk {
     ensure => installed,
   }
 
-  package { ["firefox-esr"]:
-    # Pin the specific version already present on the Pis to ensure that we
-    # don't accidentally upgrade them.
-    ensure => '52.9.0esr-1~deb9u1',
+  if $is_newer_pi {
+    package { ["firefox-esr"]:
+      ensure => installed,
+    }
+  } else {
+    package { ["firefox-esr"]:
+      # Pin the specific version already present on the Pis to ensure that we
+      # don't accidentally upgrade them.
+      ensure => '52.9.0esr-1~deb9u1',
+    }
   }
 
   package { ["xscreensaver"]:
@@ -123,16 +131,21 @@ class srcomp_kiosk {
   }
 
   $kiosk_script = "${opt_kioskdir}/kiosk.py"
-  $start_command = "$kiosk_script --browser-type ${browser_type}"
+  if $is_newer_pi {
+    $start_command = "$kiosk_script --browser-type chromium-browser --browser-path ${browser_type}"
+  } else {
+    $start_command = "$kiosk_script --browser-type ${browser_type}"
+  }
   $log_dir = $kiosk_logdir
   file { $kiosk_runner:
     ensure  => file,
     content => template('srcomp_kiosk/service.erb'),
     mode    => '0755',
-    require => [File[$kiosk_script],
-                File[$kiosk_logdir],
-                File["${etc_kioskdir}/config.yaml"],
-                File["${opt_kioskdir}/firefox-profile"]],
+    require => [
+      File[$kiosk_script],
+      File[$kiosk_logdir],
+      File["${etc_kioskdir}/config.yaml"],
+    ],
   }
 
   file { $opt_kioskdir:
@@ -146,14 +159,17 @@ class srcomp_kiosk {
     require => File[$opt_kioskdir],
   }
 
-  file { "${opt_kioskdir}/firefox-profile":
-    ensure  => directory,
-    recurse => true,
-    purge   => true,
-    force   => true,
-    source  => 'puppet:///modules/srcomp_kiosk/firefox-profile',
-    mode    => '0755',
-    require => File[$opt_kioskdir],
+  if !$is_newer_pi {
+    file { "${opt_kioskdir}/firefox-profile":
+      ensure  => directory,
+      recurse => true,
+      purge   => true,
+      force   => true,
+      source  => 'puppet:///modules/srcomp_kiosk/firefox-profile',
+      mode    => '0755',
+      before  => File[$kiosk_runner],
+      require => File[$opt_kioskdir],
+    }
   }
 
   exec { 'Start kiosk':
