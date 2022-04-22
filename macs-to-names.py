@@ -85,10 +85,14 @@ for line in lines:
 with open('pi-ssh-config', mode='w') as f:
     for port, name in port_to_name.items():
         f.write(textwrap.dedent(f'''
-            Host {name}
+            Host {name}.remote
                 HostName localhost
                 Port {port}
                 ProxyJump srcomp.studentrobotics.org
+                User pi
+
+            Host {name}
+                HostName {name}
                 User pi
         '''))
 
