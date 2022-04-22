@@ -1,0 +1,24 @@
+[Unit]
+Description=<%= @service_description %>
+After=<%= @depends_str %>
+
+[Service]
+User=<%= @user %>
+
+Type=simple
+Restart=on-failure
+<% if @environment %>
+Environment=<%= @environment %>
+<% end %>
+<% if @memory_limit %>
+MemoryLimit=<%= @memory_limit %>
+<% end %>
+
+<% if @start_dir %>
+WorkingDirectory=<%= @start_dir %>
+<% end %>
+
+ExecStart=<%= @start_command %>
+
+[Install]
+WantedBy=multi-user.target
