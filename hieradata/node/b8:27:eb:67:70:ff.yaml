@@ -1,5 +1,5 @@
 # Student Robotics Pi jss1
 ---
-url: https://www.youtube-nocookie.com/embed/7HNG2bqwXlo
-hostname: pi-livestream-jss1.srobo
+url: http://%{hiera('compbox_hostname')}/outside.html
+hostname: pi-outside-jss1.srobo
 remote_ssh_port: 28815
