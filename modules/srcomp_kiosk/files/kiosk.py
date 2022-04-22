@@ -20,25 +20,42 @@ DEFAULT_PROFILE = '/opt/srcomp-kiosk/firefox-profile'
 BROWSER_TYPES = (FIREFOX_TYPE, CHROMIUM_TYPE)
 assert DEFAULT_BROWSER_TYPE in BROWSER_TYPES
 
-logging.basicConfig(stream=sys.stdout,
-                    level=logging.INFO,
-                    format='%(asctime)s (pid:%(process)d) %(levelname)s:%(message)s'
-                   )
-logging.info("Starting kiosk on '%s' from '%s'.",
-             os.environ.get('DISPLAY'), os.getcwd())
+logging.basicConfig(
+    stream=sys.stdout,
+    level=logging.INFO,
+    format='%(asctime)s (pid:%(process)d) %(levelname)s:%(message)s',
+)
+logging.info(
+    "Starting kiosk on '%s' from '%s'.",
+    os.environ.get('DISPLAY'),
+    os.getcwd(),
+)
 
 parser = argparse.ArgumentParser(description='srcomp kiosk system')
-parser.add_argument('--config', dest='config', help='Config file location '
-        '(default: {0})'.format(DEFAULT_CONFIG),
-        default=DEFAULT_CONFIG)
-parser.add_argument('--browser-type', dest='browser_type', help='Browser type to '
-        'use (default: {0})'.format(DEFAULT_BROWSER_TYPE), default=DEFAULT_BROWSER_TYPE,
-        choices=BROWSER_TYPES)
-parser.add_argument('--browser-path', dest='browser_path', help='Path to the '
-        'browser to use (defaults to the value of the type choice)')
-parser.add_argument('--profile', dest='profile', help='Profile to use for firefox '
-        "based browsers (default: {0}, passed to the browser after '--profile')".format(DEFAULT_PROFILE),
-        default=DEFAULT_PROFILE)
+parser.add_argument(
+    '--config',
+    dest='config',
+    help='Config file location (default: {0})'.format(DEFAULT_CONFIG),
+    default=DEFAULT_CONFIG,
+)
+parser.add_argument(
+    '--browser-type',
+    dest='browser_type',
+    help='Browser type to use (default: {0})'.format(DEFAULT_BROWSER_TYPE),
+    default=DEFAULT_BROWSER_TYPE,
+    choices=BROWSER_TYPES,
+)
+parser.add_argument(
+    '--browser-path',
+    dest='browser_path',
+    help='Path to the browser to use (defaults to the value of the type choice)',
+)
+parser.add_argument(
+    '--profile',
+    dest='profile',
+    help="Profile to use for firefox based browsers (default: {0}, passed to the browser after '--profile')".format(DEFAULT_PROFILE),
+    default=DEFAULT_PROFILE,
+)
 
 args = parser.parse_args()
 
@@ -98,10 +115,10 @@ signal.signal(signal.SIGTERM, do_exit)
 # Disable screensaver
 
 xset_commands = [
-        ["xset", "-dpms"],
-        ["xset", "s", "off"],
-        ["xset", "s", "noblank"],
-    ]
+    ["xset", "-dpms"],
+    ["xset", "s", "off"],
+    ["xset", "s", "noblank"],
+]
 
 logging.info("Disabling the screensaver")
 for command in xset_commands:
