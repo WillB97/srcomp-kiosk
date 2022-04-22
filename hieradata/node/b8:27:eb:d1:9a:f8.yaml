@@ -2,3 +2,4 @@
 ---
 url: 'http://srobo.org'
 hostname: 'peters-pi.local'
+remote_ssh_port: 39518
