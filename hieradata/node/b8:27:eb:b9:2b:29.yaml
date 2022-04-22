@@ -3,3 +3,4 @@
 url: http://%{hiera('compbox_hostname')}/outside.html
 hostname: pi-outside-8.srobo
 remote_ssh_port: 11006
+compbox_hostname: "%{hiera('venue_compbox_hostname')}"

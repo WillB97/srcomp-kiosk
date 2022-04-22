@@ -5,5 +5,12 @@ browser_type: firefox
 
 timezone: Europe/London
 
-compbox_hostname: compbox.srobo
-compbox_ip: '192.168.88.2'
+venue_compbox_hostname: compbox.srobo
+venue_compbox_ip: '192.168.88.2'
+
+public_compbox_hostname: srcomp.studentrobotics.org
+
+# While the public one will always work, we don't want to accidentally use it
+# for things which ought to be on the venue network. This will fail more clearly
+# if it doesn't work, which is preferable to silent breakage.
+compbox_hostname: "%{hiera('venue_compbox_hostname')}"

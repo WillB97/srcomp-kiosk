@@ -3,3 +3,4 @@
 url: http://%{hiera('compbox_hostname')}/arena.html?main,1
 hostname: pi-arena-main1.srobo
 remote_ssh_port: 43555
+compbox_hostname: "%{hiera('venue_compbox_hostname')}"

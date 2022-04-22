@@ -11,7 +11,9 @@ class srcomp_kiosk {
   $browser_type = hiera('browser_type')
   $timezone     = hiera('timezone')
 
-  $compbox_ip   = hiera('compbox_ip')
+  $venue_compbox_ip       = hiera('venue_compbox_ip')
+  $venue_compbox_hostname = hiera('venue_compbox_hostname')
+
   $compbox_hostname = hiera('compbox_hostname')
 
   $is_newer_pi = $::architecture == 'armv7l'
@@ -179,8 +181,8 @@ class srcomp_kiosk {
     require => File[$kiosk_runner],
   }
 
-  host { $compbox_hostname:
+  host { $venue_compbox_hostname:
     ensure => present,
-    ip     => $compbox_ip,
+    ip     => $venue_compbox_ip,
   }
 }

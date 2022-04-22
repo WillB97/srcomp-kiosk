@@ -1,36 +1,36 @@
-# Ident     MAC         PAGE
+# Ident     MAC         COMPBOX     PAGE
 
 # Arena Corners;
-3b0  b8:27:eb:f0:27:ad   arena?main,0
-3b1  b8:27:eb:55:aa:cd   arena?main,1
-3b2  b8:27:eb:d8:48:81   arena?main,2
-3b3  b8:27:eb:55:bb:a1   arena?main,3
+3b0  b8:27:eb:f0:27:ad  venue   arena?main,0
+3b1  b8:27:eb:55:aa:cd  venue   arena?main,1
+3b2  b8:27:eb:d8:48:81  venue   arena?main,2
+3b3  b8:27:eb:55:bb:a1  venue   arena?main,3
 
 # Cube; SR Pi 1 As
- 1  b8:27:eb:51:84:16   staging # on areana
-10  b8:27:eb:eb:9a:17   outside # cube door
+ 1  b8:27:eb:51:84:16   venue   staging # on areana
+10  b8:27:eb:eb:9a:17   venue   outside # cube door
 
 # Bar 2
-jss0 b8:27:eb:c3:ee:17   livestream  # also exterior video wall
- 8  b8:27:eb:b9:2b:29   outside # bar 2 screen
+jss0 b8:27:eb:c3:ee:17  venue   livestream  # also exterior video wall
+ 8  b8:27:eb:b9:2b:29   venue   outside # bar 2 screen
 
 # Level 3, SUSU Cafe built in displays
-dt2 b8:27:eb:2c:f9:2f   livestream
- 7  b8:27:eb:be:ce:73   outside
+dt2 b8:27:eb:2c:f9:2f   public  livestream
+ 7  b8:27:eb:be:ce:73   public  outside
 
  # Bar 3
- dt3 b8:27:eb:0d:ef:35   livestream
+ dt3 b8:27:eb:0d:ef:35  public  livestream
 
  # Level 4
- dt1 b8:27:eb:7f:8a:33   livestream  # video wall
- jss1 b8:27:eb:67:70:ff   outside  # TODO: apply re-config
+ dt1 b8:27:eb:7f:8a:33  public  livestream  # video wall
+ jss1 b8:27:eb:67:70:ff public  outside  # TODO: apply re-config
 
 # Others
-11  b8:27:eb:69:f2:04   outside
- 6  b8:27:eb:ed:f2:77   outside
- 5  b8:27:eb:e4:7a:ef   outside
- 2  b8:27:eb:e9:ec:98   outside
- 0  b8:27:eb:89:e9:e0   outside
- 9  b8:27:eb:3c:0b:c5   shepherding # shepherding desk
- 4  b8:27:eb:ec:0e:80   outside
- 3  b8:27:eb:2e:84:e4   outside
+11  b8:27:eb:69:f2:04   public  outside
+ 6  b8:27:eb:ed:f2:77   public  outside
+ 5  b8:27:eb:e4:7a:ef   public  outside
+ 2  b8:27:eb:e9:ec:98   public  outside
+ 0  b8:27:eb:89:e9:e0   public  outside
+ 9  b8:27:eb:3c:0b:c5   public  shepherding # shepherding desk
+ 4  b8:27:eb:ec:0e:80   public  outside
+ 3  b8:27:eb:2e:84:e4   public  outside

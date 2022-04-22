@@ -3,3 +3,4 @@
 url: https://www.youtube-nocookie.com/embed/7HNG2bqwXlo
 hostname: pi-livestream-dt1.srobo
 remote_ssh_port: 35241
+compbox_hostname: "%{hiera('public_compbox_hostname')}"

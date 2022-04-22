@@ -16,6 +16,7 @@ CONTENT_TEMPLATE = '''# Student Robotics Pi {ident}
 url: {url}
 hostname: {name}
 remote_ssh_port: {remote_ssh_port}
+compbox_hostname: "%{{hiera('{compbox}_compbox_hostname')}}"
 '''
 
 def tidy(lines):
@@ -66,7 +67,7 @@ with open(FILE_NAME, 'r') as fh:
 port_to_name = {}
 
 for line in lines:
-    ident, mac, page = line.split()
+    ident, mac, compbox, page = line.split()
     name = build_name(ident, page)
     url = build_url(page)
 
@@ -81,6 +82,7 @@ for line in lines:
             ident=ident,
             url=url,
             remote_ssh_port=remote_ssh_port,
+            compbox=compbox,
         ))
 
 with open('pi-ssh-config', mode='w') as f:
