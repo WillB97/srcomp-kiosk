@@ -1,5 +1,5 @@
 # Student Robotics Pi 7
 ---
-url: http://%{hiera('compbox_hostname')}/outside.html
+url: https://srcomp.studentrobotics.org/outside.html
 hostname: pi-outside-7.srobo
 remote_ssh_port: 52645
