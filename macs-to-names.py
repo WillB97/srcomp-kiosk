@@ -89,6 +89,7 @@ with open('pi-ssh-config', mode='w') as f:
                 HostName localhost
                 Port {port}
                 ProxyJump srcomp.studentrobotics.org
+                User pi
         '''))
 
 with open('pi-names', mode='w') as f:
