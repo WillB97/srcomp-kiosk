@@ -178,3 +178,33 @@ Host pi-outside-0.srobo.remote
 Host pi-outside-0.srobo
     HostName pi-outside-0.srobo.sr.lan
     User pi
+
+Host pi-livestream-dt1.srobo.remote
+    HostName localhost
+    Port 35241
+    ProxyJump srcomp.studentrobotics.org
+    User pi
+
+Host pi-livestream-dt1.srobo
+    HostName pi-livestream-dt1.srobo.sr.lan
+    User pi
+
+Host pi-livestream-dt2.srobo.remote
+    HostName localhost
+    Port 63542
+    ProxyJump srcomp.studentrobotics.org
+    User pi
+
+Host pi-livestream-dt2.srobo
+    HostName pi-livestream-dt2.srobo.sr.lan
+    User pi
+
+Host pi-livestream-dt3.srobo.remote
+    HostName localhost
+    Port 60998
+    ProxyJump srcomp.studentrobotics.org
+    User pi
+
+Host pi-livestream-dt3.srobo
+    HostName pi-livestream-dt3.srobo.sr.lan
+    User pi
