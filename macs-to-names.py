@@ -9,6 +9,7 @@ LIVESTREAM_URL = 'https://www.youtube-nocookie.com/embed/7HNG2bqwXlo'
 
 FILE_NAME = 'pi_macs'
 NAME_TEMPLATE = 'pi-{page}-{qual}.srobo'
+LOCAL_NAME_SUFFIX = '.sr.lan'
 PAGE_TEMPLATE = 'http://%{{hiera(\'compbox_hostname\')}}/{page}.html{query}'
 CONTENT_TEMPLATE = '''# Student Robotics Pi {ident}
 ---
@@ -92,7 +93,7 @@ with open('pi-ssh-config', mode='w') as f:
                 User pi
 
             Host {name}
-                HostName {name}
+                HostName {name}{LOCAL_NAME_SUFFIX}
                 User pi
         '''))
 

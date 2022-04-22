@@ -6,7 +6,7 @@ Host pi-arena-main0.srobo.remote
     User pi
 
 Host pi-arena-main0.srobo
-    HostName pi-arena-main0.srobo
+    HostName pi-arena-main0.srobo.sr.lan
     User pi
 
 Host pi-arena-main1.srobo.remote
@@ -16,7 +16,7 @@ Host pi-arena-main1.srobo.remote
     User pi
 
 Host pi-arena-main1.srobo
-    HostName pi-arena-main1.srobo
+    HostName pi-arena-main1.srobo.sr.lan
     User pi
 
 Host pi-arena-main2.srobo.remote
@@ -26,7 +26,7 @@ Host pi-arena-main2.srobo.remote
     User pi
 
 Host pi-arena-main2.srobo
-    HostName pi-arena-main2.srobo
+    HostName pi-arena-main2.srobo.sr.lan
     User pi
 
 Host pi-arena-main3.srobo.remote
@@ -36,7 +36,7 @@ Host pi-arena-main3.srobo.remote
     User pi
 
 Host pi-arena-main3.srobo
-    HostName pi-arena-main3.srobo
+    HostName pi-arena-main3.srobo.sr.lan
     User pi
 
 Host pi-staging-1.srobo.remote
@@ -46,7 +46,7 @@ Host pi-staging-1.srobo.remote
     User pi
 
 Host pi-staging-1.srobo
-    HostName pi-staging-1.srobo
+    HostName pi-staging-1.srobo.sr.lan
     User pi
 
 Host pi-outside-10.srobo.remote
@@ -56,7 +56,7 @@ Host pi-outside-10.srobo.remote
     User pi
 
 Host pi-outside-10.srobo
-    HostName pi-outside-10.srobo
+    HostName pi-outside-10.srobo.sr.lan
     User pi
 
 Host pi-shepherding-9.srobo.remote
@@ -66,7 +66,7 @@ Host pi-shepherding-9.srobo.remote
     User pi
 
 Host pi-shepherding-9.srobo
-    HostName pi-shepherding-9.srobo
+    HostName pi-shepherding-9.srobo.sr.lan
     User pi
 
 Host pi-outside-8.srobo.remote
@@ -76,7 +76,7 @@ Host pi-outside-8.srobo.remote
     User pi
 
 Host pi-outside-8.srobo
-    HostName pi-outside-8.srobo
+    HostName pi-outside-8.srobo.sr.lan
     User pi
 
 Host pi-livestream-jss1.srobo.remote
@@ -86,7 +86,7 @@ Host pi-livestream-jss1.srobo.remote
     User pi
 
 Host pi-livestream-jss1.srobo
-    HostName pi-livestream-jss1.srobo
+    HostName pi-livestream-jss1.srobo.sr.lan
     User pi
 
 Host pi-outside-7.srobo.remote
@@ -96,7 +96,7 @@ Host pi-outside-7.srobo.remote
     User pi
 
 Host pi-outside-7.srobo
-    HostName pi-outside-7.srobo
+    HostName pi-outside-7.srobo.sr.lan
     User pi
 
 Host pi-outside-3.srobo.remote
@@ -106,7 +106,7 @@ Host pi-outside-3.srobo.remote
     User pi
 
 Host pi-outside-3.srobo
-    HostName pi-outside-3.srobo
+    HostName pi-outside-3.srobo.sr.lan
     User pi
 
 Host pi-livestream-jss0.srobo.remote
@@ -116,7 +116,7 @@ Host pi-livestream-jss0.srobo.remote
     User pi
 
 Host pi-livestream-jss0.srobo
-    HostName pi-livestream-jss0.srobo
+    HostName pi-livestream-jss0.srobo.sr.lan
     User pi
 
 Host pi-outside-4.srobo.remote
@@ -126,7 +126,7 @@ Host pi-outside-4.srobo.remote
     User pi
 
 Host pi-outside-4.srobo
-    HostName pi-outside-4.srobo
+    HostName pi-outside-4.srobo.sr.lan
     User pi
 
 Host pi-outside-11.srobo.remote
@@ -136,7 +136,7 @@ Host pi-outside-11.srobo.remote
     User pi
 
 Host pi-outside-11.srobo
-    HostName pi-outside-11.srobo
+    HostName pi-outside-11.srobo.sr.lan
     User pi
 
 Host pi-outside-6.srobo.remote
@@ -146,7 +146,7 @@ Host pi-outside-6.srobo.remote
     User pi
 
 Host pi-outside-6.srobo
-    HostName pi-outside-6.srobo
+    HostName pi-outside-6.srobo.sr.lan
     User pi
 
 Host pi-outside-5.srobo.remote
@@ -156,7 +156,7 @@ Host pi-outside-5.srobo.remote
     User pi
 
 Host pi-outside-5.srobo
-    HostName pi-outside-5.srobo
+    HostName pi-outside-5.srobo.sr.lan
     User pi
 
 Host pi-outside-2.srobo.remote
@@ -166,7 +166,7 @@ Host pi-outside-2.srobo.remote
     User pi
 
 Host pi-outside-2.srobo
-    HostName pi-outside-2.srobo
+    HostName pi-outside-2.srobo.sr.lan
     User pi
 
 Host pi-outside-0.srobo.remote
@@ -176,5 +176,5 @@ Host pi-outside-0.srobo.remote
     User pi
 
 Host pi-outside-0.srobo
-    HostName pi-outside-0.srobo
+    HostName pi-outside-0.srobo.sr.lan
     User pi
