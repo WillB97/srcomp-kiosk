@@ -35,13 +35,13 @@ parser = argparse.ArgumentParser(description='srcomp kiosk system')
 parser.add_argument(
     '--config',
     dest='config',
-    help='Config file location (default: {0})'.format(DEFAULT_CONFIG),
+    help='Config file location (default: %(default)s)',
     default=DEFAULT_CONFIG,
 )
 parser.add_argument(
     '--browser-type',
     dest='browser_type',
-    help='Browser type to use (default: {0})'.format(DEFAULT_BROWSER_TYPE),
+    help='Browser type to use (default: %(default)s)',
     default=DEFAULT_BROWSER_TYPE,
     choices=BROWSER_TYPES,
 )
@@ -53,7 +53,7 @@ parser.add_argument(
 parser.add_argument(
     '--profile',
     dest='profile',
-    help="Profile to use for firefox based browsers (default: {0}, passed to the browser after '--profile')".format(DEFAULT_PROFILE),
+    help="Profile to use for firefox based browsers (default: %(default)s, passed to the browser after '--profile')",
     default=DEFAULT_PROFILE,
 )
 
