@@ -3,6 +3,7 @@
 from __future__ import print_function
 
 import os.path
+import textwrap
 
 LIVESTREAM_URL = 'https://www.youtube-nocookie.com/embed/7HNG2bqwXlo'
 
@@ -13,6 +14,7 @@ CONTENT_TEMPLATE = '''# Student Robotics Pi {ident}
 ---
 url: {url}
 hostname: {name}
+remote_ssh_port: {remote_ssh_port}
 '''
 
 def tidy(lines):
@@ -50,21 +52,44 @@ def build_name(ident, page):
 def build_filename(mac):
     return os.path.join('hieradata', 'node', mac + '.yaml')
 
+def build_port(mac):
+    left, right = mac.split(':')[-2:]
+    upper, lower = int(left, 16), int(right, 16)
+    port = upper * 0xff + lower
+    return port
+
+
 with open(FILE_NAME, 'r') as fh:
     lines = tidy(fh.readlines())
 
-names = []
+port_to_name = {}
 
 for line in lines:
     ident, mac, page = line.split()
     name = build_name(ident, page)
     url = build_url(page)
 
-    names.append(name)
+    remote_ssh_port = build_port(mac)
+    assert remote_ssh_port not in port_to_name
+    port_to_name[remote_ssh_port] = name
 
     fn = build_filename(mac)
     with open(fn, 'w+') as fh:
-        fh.write(CONTENT_TEMPLATE.format(name=name, ident=ident, url=url))
+        fh.write(CONTENT_TEMPLATE.format(
+            name=name,
+            ident=ident,
+            url=url,
+            remote_ssh_port=remote_ssh_port,
+        ))
+
+with open('pi-ssh-config', mode='w') as f:
+    for port, name in port_to_name.items():
+        f.write(textwrap.dedent(f'''
+            Host {name}
+                HostName localhost
+                Port {port}
+                ProxyJump srcomp.studentrobotics.org
+        '''))
 
 with open('pi-names', mode='w') as f:
-    print('\n'.join(names), file=f)
+    print('\n'.join(port_to_name.values()), file=f)

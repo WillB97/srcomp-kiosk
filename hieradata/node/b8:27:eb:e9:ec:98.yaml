@@ -2,3 +2,4 @@
 ---
 url: http://%{hiera('compbox_hostname')}/outside.html
 hostname: pi-outside-2.srobo
+remote_ssh_port: 60332

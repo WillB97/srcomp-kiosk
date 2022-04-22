@@ -2,3 +2,4 @@
 ---
 url: http://%{hiera('compbox_hostname')}/staging.html
 hostname: pi-staging-1.srobo
+remote_ssh_port: 33682

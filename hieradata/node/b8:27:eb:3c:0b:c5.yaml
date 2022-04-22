@@ -2,3 +2,4 @@
 ---
 url: http://%{hiera('compbox_hostname')}/shepherding.html
 hostname: pi-shepherding-9.srobo
+remote_ssh_port: 3002
