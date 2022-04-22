@@ -4,5 +4,5 @@
 :yaml:
   :datadir: /etc/puppet/hieradata
 :hierarchy:
-  - "node/%{::macaddress}"
+  - "node/%{::macaddress_eth0}"
   - common
