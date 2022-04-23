@@ -1,6 +1,6 @@
 # Student Robotics Pi dt2
 ---
-url: https://www.youtube-nocookie.com/embed/7HNG2bqwXlo
+url: https://www.youtube-nocookie.com/embed/M3stcLPbHOU
 hostname: pi-livestream-dt2.srobo
 remote_ssh_port: 63542
 compbox_hostname: "%{hiera('public_compbox_hostname')}"

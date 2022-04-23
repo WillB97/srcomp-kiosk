@@ -5,7 +5,7 @@ from __future__ import print_function
 import os.path
 import textwrap
 
-LIVESTREAM_URL = 'https://www.youtube-nocookie.com/embed/7HNG2bqwXlo'
+LIVESTREAM_URL = 'https://www.youtube-nocookie.com/embed/M3stcLPbHOU'
 
 FILE_NAME = 'pi_macs'
 NAME_TEMPLATE = 'pi-{page}-{qual}.srobo'
