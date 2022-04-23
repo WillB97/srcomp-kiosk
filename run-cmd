@@ -1,6 +1,36 @@
-#!/bin/bash -x
+#!/usr/bin/env python3
 
-for pi in `cat pi-names`
-do
-	ssh $pi "$@"
-done
+import argparse
+import fnmatch
+import subprocess
+from pathlib import Path
+
+
+def main(pattern, command):
+    names = (Path(__file__).parent / 'pi-names').read_text().splitlines(keepends=False)
+
+    if pattern:
+        names = fnmatch.filter(names, pattern)
+
+    for name in names:
+        print(f'--- {name} ---')
+        subprocess.run(['ssh', name, *command])
+        print()
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--pattern',
+        help="Run only on names which match this fnmatch pattern.",
+    )
+    parser.add_argument(
+        'command',
+        nargs=argparse.ONE_OR_MORE,
+        help="The command to run.",
+    )
+    return parser.parse_args()
+
+
+if __name__ == '__main__':
+    main(**parse_args().__dict__)
