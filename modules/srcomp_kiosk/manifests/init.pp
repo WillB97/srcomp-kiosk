@@ -111,7 +111,6 @@ class srcomp_kiosk {
     part_of     => 'graphical.target',
     depends     => undef,
     restart     => 'always',
-    wanted_by   => 'graphical.target',
   }
 
   host { $venue_compbox_hostname:
