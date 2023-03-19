@@ -52,12 +52,6 @@ class srcomp_kiosk {
     source  => 'puppet:///modules/srcomp_kiosk/10-blanking.conf',
     require => File["/etc/X11/xorg.conf.d"],
   }
-  exec { "/usr/bin/xset -display :0 s off":
-  }
-  exec { "/usr/bin/xset -display :0 s noblank":
-  }
-  exec { "/usr/bin/xset -display :0 -dpms || true":
-  }
 
   # Remove undervoltage warnings
   package { ["lxplug-ptbatt"]:
