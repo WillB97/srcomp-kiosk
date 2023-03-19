@@ -8,7 +8,6 @@ class srcomp_kiosk {
   $user_config  = "${user_home}/.config"
   $user_ssh     = "${user_home}/.ssh"
   $url          = hiera('url')
-  $browser_type = hiera('browser_type')
   $timezone     = hiera('timezone')
 
   $venue_compbox_ip       = hiera('venue_compbox_ip')
@@ -35,6 +34,7 @@ class srcomp_kiosk {
             ,"screen"
             ,"xdotool"
             ,"htop"
+            ,"chromium-browser"
             ,"ntpstat"  #  but `ntpq -p` is more useful
             ]:
     ensure => installed,
@@ -53,24 +53,14 @@ class srcomp_kiosk {
     require => File["/etc/X11/xorg.conf.d"],
   }
 
-  package { ["xscreensaver"]:
+  # Remove undervoltage warnings
+  package { ["lxplug-ptbatt"]:
     ensure => absent,
   }
 
   File {
     owner   => $user,
     group   => $user,
-  }
-
-  # Config
-  file { $etc_kioskdir:
-    ensure => directory,
-  }
-
-  file { "${etc_kioskdir}/config.yaml":
-    ensure  => file,
-    content => "url: '${url}'",
-    require => File[$etc_kioskdir],
   }
 
   # User config
@@ -82,12 +72,6 @@ class srcomp_kiosk {
     ensure  => file,
     mode    => '0755',
     content => 'ps aux | grep --color -E "(unclutter|icew|fire|chrom|python)"',
-  }
-
-  file { "${user_home}/.bash_aliases":
-    ensure  => file,
-    mode    => '0644',
-    content => 'export DISPLAY=:0',
   }
 
   # Easy logins
@@ -104,82 +88,30 @@ class srcomp_kiosk {
     require => File[$user_ssh],
   }
 
-  # Autostart
-  file { $user_config:
-    ensure  => directory,
-    require => File[$user_home],
-  }
-
-  $autostart_dir = "${user_config}/autostart"
-  file { $autostart_dir:
-    ensure  => directory,
-    require => File[$user_config],
-  }
-
-  $kiosk_runner = '/usr/local/bin/srcomp-kiosk'
-  file { "${autostart_dir}/kiosk.desktop":
-    ensure  => file,
-    content => template('srcomp_kiosk/kiosk.desktop.erb'),
-    require => File[$autostart_dir],
-  }
-
-  file { $kiosk_logdir:
-    ensure  => directory,
-  }
-
-  $service_name = 'srcomp-kiosk'
-  $service_pid_file = "/tmp/${service_name}.pid"
-  file { $service_pid_file:
-    ensure  => file,
-  }
-
-  $kiosk_script = "${opt_kioskdir}/kiosk.py"
+  $base_kiosk_args = "--kiosk --enable-kiosk-mode --enabled"
+  $base_kiosk_opts = "--no-sandbox --disable-smooth-scrolling --disable-java --disable-restore-session-state --disable-sync --disable-translate"
+  $low_power_kiosk_args = "--disable-low-res-tiling --enable-low-end-device-mode --disable-composited-antialiasing --disk-cache-size=1 --media-cache-size=1"
   if $is_newer_pi {
-    $start_command = "$kiosk_script --browser-type chromium-browser --browser-path ${browser_type}"
-  } else {
-    $start_command = "$kiosk_script --browser-type ${browser_type}"
-  }
-  $log_dir = $kiosk_logdir
-  file { $kiosk_runner:
-    ensure  => file,
-    content => template('srcomp_kiosk/service.erb'),
-    mode    => '0755',
-    require => [
-      File[$kiosk_script],
-      File[$kiosk_logdir],
-      File["${etc_kioskdir}/config.yaml"],
-    ],
-  }
-
-  file { $opt_kioskdir:
-    ensure  => directory,
-  }
-
-  file { $kiosk_script:
-    ensure  => file,
-    source  => 'puppet:///modules/srcomp_kiosk/kiosk.py',
-    mode    => '0755',
-    require => File[$opt_kioskdir],
-  }
-
-  if !$is_newer_pi {
-    file { "${opt_kioskdir}/firefox-profile":
-      ensure  => directory,
-      recurse => true,
-      purge   => true,
-      force   => true,
-      source  => 'puppet:///modules/srcomp_kiosk/firefox-profile',
-      mode    => '0755',
-      before  => File[$kiosk_runner],
-      require => File[$opt_kioskdir],
+    if hiera('is_livestream') {
+      # https://www.youtube.com/embed/${livestream_id}?autoplay=1&controls=0&hd=1
+      $kiosk_args = "--kiosk --no-user-gesture-required --start-fullscreen --autoplay-policy=no-user-gesture-required"
+    } else {
+      $kiosk_args = "${base_kiosk_args} ${base_kiosk_opts}"
     }
+  } else {
+    $kiosk_args = "${base_kiosk_args} ${base_kiosk_opts} ${low_power_kiosk_args}"
   }
 
-  exec { 'Start kiosk':
-    command => "/bin/su - -c 'DISPLAY=:0.0 ${kiosk_runner} start' ${user}",
-    cwd     => $user_home,
-    unless  => "${kiosk_runner} status",
-    require => File[$kiosk_runner],
+  srcomp_kiosk::systemd_service { 'srcomp-kiosk':
+    desc        => 'A fullscreen chromium browser in kiosk mode.',
+    user        => 'pi',
+    command     => "/usr/bin/chromium-browser ${kiosk_args} '${url}'",
+    environment => 'DISPLAY=:0',
+    wanted_by   => 'graphical.target',
+    part_of     => 'graphical.target',
+    depends     => undef,
+    restart     => 'always',
+    wanted_by   => 'graphical.target',
   }
 
   host { $venue_compbox_hostname:

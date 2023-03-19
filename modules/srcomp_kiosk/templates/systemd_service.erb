@@ -1,12 +1,17 @@
 [Unit]
 Description=<%= @service_description %>
+<% if @depends_str %>
 After=<%= @depends_str %>
+<% end %>
+<% if @part_of %>
+PartOf=<%= @part_of %>
+<% end %>
 
 [Service]
 User=<%= @user %>
 
 Type=simple
-Restart=on-failure
+Restart=<%= @restart %>
 <% if @environment %>
 Environment=<%= @environment %>
 <% end %>
@@ -21,4 +26,4 @@ WorkingDirectory=<%= @start_dir %>
 ExecStart=<%= @start_command %>
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=<%= @wanted_by %>

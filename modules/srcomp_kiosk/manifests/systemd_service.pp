@@ -5,7 +5,10 @@ define srcomp_kiosk::systemd_service (
   $dir = undef,
   $memory_limit = undef,
   $depends = ['network.target'],
+  $part_of = undef,
   $environment = undef,
+  $restart='on-failure',
+  $wanted_by='multi-user.target',
   $subs = []
 ) {
   $service_name = "${title}.service"
@@ -14,7 +17,9 @@ define srcomp_kiosk::systemd_service (
   $service_description = $desc
   $start_dir = $dir
   $start_command = $command
-  $depends_str = join($depends, ' ')
+  if $depends != undef {
+    $depends_str = join($depends, ' ')
+  }
 
   file { $service_file:
     ensure  => present,
@@ -23,14 +28,13 @@ define srcomp_kiosk::systemd_service (
     mode    => '0644',
     content => template('srcomp_kiosk/systemd_service.erb'),
   } ->
-  file { "/etc/systemd/system/multi-user.target.wants/${service_name}":
+  file { "/etc/systemd/system/${wanted_by}.wants/${service_name}":
     ensure  => link,
     target  => $service_file,
   } ->
   exec { "${title}-systemd-load":
     provider  => 'shell',
     command   => 'systemctl daemon-reload',
-    onlyif    => "systemctl --all | grep -F ${service_name}; if test $? = 0; then exit 1; fi; exit 0",
     subscribe => File[$service_file],
   } ->
   service { $title:
