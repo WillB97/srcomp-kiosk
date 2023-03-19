@@ -40,16 +40,17 @@ class srcomp_kiosk {
     ensure => installed,
   }
 
-  if $is_newer_pi {
-    package { ["firefox-esr"]:
-      ensure => installed,
-    }
-  } else {
-    package { ["firefox-esr"]:
-      # Pin the specific version already present on the Pis to ensure that we
-      # don't accidentally upgrade them.
-      ensure => '52.9.0esr-1~deb9u1',
-    }
+  # Disable screen blanking
+  package { ["xscreensaver"]:
+    ensure => absent,
+  }
+  file { "/etc/X11/xorg.conf.d":
+    ensure  => directory,
+  }
+  file { "/etc/X11/xorg.conf.d/10-blanking.conf":
+    ensure  => file,
+    source  => 'puppet:///modules/srcomp_kiosk/10-blanking.conf',
+    require => File["/etc/X11/xorg.conf.d"],
   }
 
   package { ["xscreensaver"]:
