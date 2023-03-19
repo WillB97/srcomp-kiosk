@@ -17,6 +17,7 @@ url: {url}
 hostname: {name}
 remote_ssh_port: {remote_ssh_port}
 compbox_hostname: "%{{hiera('{compbox}_compbox_hostname')}}"
+is_livestream: {is_livestream}
 '''
 
 def tidy(lines):
@@ -34,14 +35,14 @@ def tidy(lines):
 
 def build_url(page):
     if page == 'livestream':
-        return LIVESTREAM_URL
+        return LIVESTREAM_URL, 'true'
 
     parts = page.split('?')
     if len(parts) == 1:
-        return PAGE_TEMPLATE.format(page=page, query='')
+        return PAGE_TEMPLATE.format(page=page, query=''), 'false'
     else:
         query = '?' + parts[1]
-        return PAGE_TEMPLATE.format(page=parts[0], query=query)
+        return PAGE_TEMPLATE.format(page=parts[0], query=query), 'false'
 
 def build_name(ident, page):
     parts = page.split('?')
@@ -69,7 +70,7 @@ port_to_name = {}
 for line in lines:
     ident, mac, compbox, page = line.split()
     name = build_name(ident, page)
-    url = build_url(page)
+    url, is_livestream = build_url(page)
 
     remote_ssh_port = build_port(mac)
     assert remote_ssh_port not in port_to_name
@@ -83,6 +84,7 @@ for line in lines:
             url=url,
             remote_ssh_port=remote_ssh_port,
             compbox=compbox,
+            is_livestream=is_livestream,
         ))
 
 with open('pi-ssh-config', mode='w') as f:
