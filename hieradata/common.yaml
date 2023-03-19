@@ -14,3 +14,5 @@ public_compbox_hostname: srcomp.studentrobotics.org
 # for things which ought to be on the venue network. This will fail more clearly
 # if it doesn't work, which is preferable to silent breakage.
 compbox_hostname: "%{hiera('venue_compbox_hostname')}"
+
+remote_ssh_port: 2222
