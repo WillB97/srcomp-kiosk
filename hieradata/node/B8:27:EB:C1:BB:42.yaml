@@ -1,7 +1,0 @@
-# Student Robotics Pi test
----
-url: http://%{hiera('compbox_hostname')}/outside.html
-hostname: pi-outside-test.srobo
-remote_ssh_port: 47751
-compbox_hostname: "%{hiera('venue_compbox_hostname')}"
-is_livestream: false
