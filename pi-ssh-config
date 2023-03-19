@@ -208,3 +208,13 @@ Host pi-outside-3.srobo.remote
 Host pi-outside-3.srobo
     HostName pi-outside-3.srobo.sr.lan
     User pi
+
+Host pi-outside-test.srobo.remote
+    HostName localhost
+    Port 47751
+    ProxyJump srcomp.studentrobotics.org
+    User pi
+
+Host pi-outside-test.srobo
+    HostName pi-outside-test.srobo.sr.lan
+    User pi
